@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Codin 1 Website - Dockerized
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project demonstrates a basic React app that displays an `<h1>` tag with the text "Codin 1". The project is dockerized to ensure consistent development and production environments. This README will guide you through setting up the development environment using Docker.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+Make sure you have the following installed on your machine:
+- [Docker](https://www.docker.com/get-started)
+- A web browser to access the application
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Follow the steps below to set up and run the application in a Docker container.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Clone the Repository
 
-### `npm test`
+If you're working with this code locally, clone the repository or download the project files.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone git@github.com:simarjotsingh2/Singh_simarjot_Projectsite.git
+cd Singh_simarjot_Projectsite
+```
 
-### `npm run build`
+### 2. Build the Docker Image
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In the project directory (where the `Dockerfile` is located), build the Docker image using the following command:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+docker build -t Singh_simarjot_coding_assignment11 .
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This command will create a Docker image named `Singh_simarjot_coding_assignment11`.
 
-### `npm run eject`
+### 3. Run the Docker Container
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Once the image is built, you can run the container using the following command:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+docker run -p 7775:7775 Singh_simarjot_coding_assignment11
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This command maps port `7775` of your local machine to port `7775` of the Docker container.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. Access the Application
 
-## Learn More
+Open your web browser and go to `http://localhost:7775` (or `127.0.0.1:7775`). You should see the web page displaying "Codin 1" as an `<h1>` tag.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 5. Stop the Docker Container
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To stop the container, press `CTRL + C` in the terminal where the container is running.
 
-### Code Splitting
+Alternatively, you can list and stop the container using:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+docker ps    # Lists running containers
+docker stop Singh_simarjot_coding_assignment11
+```
 
-### Analyzing the Bundle Size
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```plaintext
+├── public/
+├── src/
+│   └── App.js          # Displays the "Codin 1" text
+├── Dockerfile          # Docker configuration file
+├── package.json        # Project configuration and dependencies
+└── README.md           # Project instructions (this file)
+```
 
-### Making a Progressive Web App
+## Dockerfile Overview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Base Image**: Uses `node:16-alpine` for lightweight Node.js.
+- **Working Directory**: `/Singh_simarjot_Projectsite`.
+- **Ports**: Exposes port `7775` for local development.
+- **Command**: Runs `npm start` to start the React app.
 
-### Advanced Configuration
+## Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- If you can't access `http://localhost:7775`, make sure Docker is running and check if the container is properly started.
+- If you encounter issues, you can rebuild the image by running `docker build` again.
